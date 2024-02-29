@@ -1,6 +1,6 @@
 import sys
 
-from restuarant import *
+from restaraunt import *
 
 
 def new_order():
@@ -25,12 +25,12 @@ def new_order():
 def get_sandwiches():
     while (get_yes_no_answer("Do you want another sandwich?")):
         sandwich = get_sandwich()
-        #sandwiches.append(sandwiches.pop())
+        # sandwiches.append(sandwiches.pop())
 
 
 def get_sandwich() -> list:
-    # if not get_yes_no_answer("Would you like a sandwich?>"):
-    #    return
+    if not get_yes_no_answer("Would you like a sandwich?>"):
+        return
 
     # create prompt
     prompt = "Which sandwich would you like to order: ("
@@ -148,18 +148,11 @@ def get_ketchup_packets():
         return
 
     per_each_cost = prices[IDX_KETCHUP_PACKETS]
-    while True:
-        try:
-            n = int(input(f"How many ketchup packets would you like at ${per_each_cost:.2f} each?>"))
-            if n > 0:
-                order[IDX_NUM_KETCHUP_PACKETS] = n
-                order[IDX_KETCHUP_PACKETS_COST] = n * per_each_cost
-                order[IDX_TOTAL_COST] += order[IDX_KETCHUP_PACKETS_COST]
-                break
-            print('Enter only a positive, whole number')
-        except ValueError:
-            print('Enter only whole numbers')
+    n = get_quantity(f"How many ketchup packets would you like at ${per_each_cost:.2f} each", 1, 10)
 
+    order[IDX_NUM_KETCHUP_PACKETS] = n
+    order[IDX_KETCHUP_PACKETS_COST] = n * per_each_cost
+    order[IDX_TOTAL_COST] += order[IDX_KETCHUP_PACKETS_COST]
 
 def check_for_discount():
     if order[IDX_SANDWICH_COST] > 0 and order[IDX_BEVERAGE_COST] > 0 and order[IDX_FRIES_COST] > 0:
@@ -235,8 +228,22 @@ def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
 
-if __name__ == '__main__':
-    print(f'Combo Menu using lists and python version {get_python_version()}')
+def get_quantity(question: str, min: int = 0, max: int = 10) -> int:
+    """Prompt for a number between min and max"""
+    question = f'{question} (between {min} and {max}?>)'
+    count: int = min - 1
+    while count < min or count > max:
+        try:
+            count = int(input(question))
+            if count < min or count > max:
+                print(f'Please enter a number between {min} and {max}.')
+            else:
+                return count
+        except ValueError:
+            print(f'Please enter a value between {min} and {max}')
+
+
+def get_order() -> []:
     new_order()
     get_sandwich()
     get_beverage()
@@ -244,3 +251,14 @@ if __name__ == '__main__':
     get_ketchup_packets()
     check_for_discount()
     display_order()
+    order = []
+    # TODO: code needed here
+    return order
+
+
+if __name__ == '__main__':
+    print(f'Combo Menu with multiple orders and python version {get_python_version()}')
+    order = get_order()
+
+    while get_yes_no_answer("Do you want to make another order?"):
+        get_order()
