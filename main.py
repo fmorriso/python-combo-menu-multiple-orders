@@ -1,11 +1,9 @@
 import sys
 
 from restaraunt import *
-from single_order import SingleOrder
 
 # define the list that will hold multiple orders
 orders = []
-
 
 def new_order():
 
