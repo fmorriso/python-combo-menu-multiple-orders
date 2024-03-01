@@ -17,16 +17,6 @@ def new_order():
 
     order[IDX_DISCOUNT_APPLIED] = False
 
-    sandwiches.clear()
-    beverages.clear()
-    fries.clear()
-
-
-def get_sandwiches():
-    while (get_yes_no_answer("Do you want another sandwich?")):
-        sandwich = get_sandwich()
-        # sandwiches.append(sandwiches.pop())
-
 
 def get_sandwich() -> list:
     if not get_yes_no_answer("Would you like a sandwich?>"):
@@ -154,6 +144,7 @@ def get_ketchup_packets():
     order[IDX_KETCHUP_PACKETS_COST] = n * per_each_cost
     order[IDX_TOTAL_COST] += order[IDX_KETCHUP_PACKETS_COST]
 
+
 def check_for_discount():
     if order[IDX_SANDWICH_COST] > 0 and order[IDX_BEVERAGE_COST] > 0 and order[IDX_FRIES_COST] > 0:
         order[IDX_DISCOUNT_APPLIED] = True
@@ -230,7 +221,7 @@ def get_python_version() -> str:
 
 def get_quantity(question: str, min: int = 0, max: int = 10) -> int:
     """Prompt for a number between min and max"""
-    question = f'{question} (between {min} and {max}?>)'
+    question = f'{question} (between {min} and {max})?>)'
     count: int = min - 1
     while count < min or count > max:
         try:
@@ -243,7 +234,7 @@ def get_quantity(question: str, min: int = 0, max: int = 10) -> int:
             print(f'Please enter a value between {min} and {max}')
 
 
-def get_order() -> []:
+def get_order() -> None:
     new_order()
     get_sandwich()
     get_beverage()
@@ -251,14 +242,21 @@ def get_order() -> []:
     get_ketchup_packets()
     check_for_discount()
     display_order()
-    order = []
-    # TODO: code needed here
-    return order
+
+
+def display_all_orders() -> None:
+    pass
 
 
 if __name__ == '__main__':
     print(f'Combo Menu with multiple orders and python version {get_python_version()}')
-    order = get_order()
-
-    while get_yes_no_answer("Do you want to make another order?"):
+    get_order()
+    orders.append(order)
+    while get_yes_no_answer("Do you want to make another order?>"):
         get_order()
+        orders.append(order)
+
+    if get_yes_no_answer("Do you want to view all orders?>"):
+        for item in orders:
+            order = item
+            display_order()
