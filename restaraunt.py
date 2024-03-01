@@ -1,6 +1,3 @@
-# define the list that will hold multiple orders
-orders = []
-
 # define each individual order as a list
 order = []
 
