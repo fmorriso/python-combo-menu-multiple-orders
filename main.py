@@ -5,15 +5,17 @@ from restaraunt import *
 # define the list that will hold multiple orders
 orders = []
 
+
 def make_a_copy() -> []:
+    """Make a copy of the current order and return it to the caller"""
     duplicate = []
     for i in range(0, len(order)):
         duplicate.append(order[i])
     return duplicate
 
-def new_order():
 
-    print(f'top of new_order: len(order) = {len(order)}')
+def new_order():
+    # print(f'DEBUG: top of new_order: len(order) = {len(order)}')
     order[IDX_TOTAL_COST] = 0
 
     order[IDX_SANDWICH_TYPE] = "None"
@@ -158,8 +160,14 @@ def check_for_discount():
         order[IDX_TOTAL_COST] -= 1
 
 
-def display_order():
-    output = 'Your order:'
+def display_order(i: int = -1):
+    global order
+    output = ''
+    if i == -1:
+        output += 'Your order:'
+    else:
+        output += f'Order number {i + 1}'
+        order = orders[i]
 
     # add sandwich information
     item_name = 'Sandwich:'
@@ -248,29 +256,35 @@ def get_order() -> None:
     get_fries()
     get_ketchup_packets()
     check_for_discount()
+    display_order(-1)
 
-    print(f'DEBUG 1 orders: {orders}')
+    # print(f'DEBUG 1 orders: {orders}')
+    # IMPORTANT: do NOT append the order variable to the orders list!!!!!
+    #            Instead, make a copy of order and store THAT one in the orders list.
     dupe_order = make_a_copy()
     orders.append(dupe_order)
-    print(f'DEBUG 2 orders: {orders}')
+    # print(f'DEBUG 2 orders: {orders}')
 
-def display_multiple_order(i):
-    single_order = orders[i]
-    print(single_order)
+
+def display_multiple_order():
+    global order
+    """
+        for single_order in orders:
+        print(f'{single_order=}')
+    """
+    for i in range(len(orders)):
+        display_order(i)
 
 
 if __name__ == '__main__':
     print(f'Combo Menu with multiple orders and python version {get_python_version()}')
     get_order()
 
-    print(f'DEBUG: after first order, orders = {orders}')
+    # print(f'DEBUG: after first order, orders = {orders}')
     while get_yes_no_answer("Do you want to make another order?>"):
         get_order()
-        print(f'DEBUG: after next order, orders = {orders}')
+        # print(f'DEBUG: after next order, orders = {orders}')
 
-"""
     if get_yes_no_answer("Do you want to view all orders?>"):
-        print(f'DEBUG: Before for loop, orders = {orders}')
-        for i in range(len(orders)):
-            display_multiple_order(i)
-"""
+        # print(f'DEBUG: Before for loop, orders = {orders}')
+        display_multiple_order()
