@@ -236,7 +236,7 @@ def get_python_version() -> str:
 
 def get_quantity(question: str, min: int = 0, max: int = 10) -> int:
     """Prompt for a number between min and max"""
-    question = f'{question} (between {min} and {max})?>)'
+    question = f'{question} (between {min} and {max})?>'
     count: int = min - 1
     while count < min or count > max:
         try:
