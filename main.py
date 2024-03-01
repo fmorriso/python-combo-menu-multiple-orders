@@ -1,6 +1,7 @@
 import sys
 
 from restaraunt import *
+from single_order import SingleOrder
 
 
 def new_order():
@@ -151,8 +152,11 @@ def check_for_discount():
         order[IDX_TOTAL_COST] -= 1
 
 
-def display_order():
-    output = 'Your order:'
+def display_order(n: int = -1):
+    if n == -1:
+        output = 'Your order:'
+    else:
+        output = f'Order #{n}'
 
     # add sandwich information
     item_name = 'Sandwich:'
@@ -250,13 +254,15 @@ def display_all_orders() -> None:
 
 if __name__ == '__main__':
     print(f'Combo Menu with multiple orders and python version {get_python_version()}')
+
     get_order()
     orders.append(order)
     while get_yes_no_answer("Do you want to make another order?>"):
         get_order()
         orders.append(order)
 
+    order = []
     if get_yes_no_answer("Do you want to view all orders?>"):
-        for item in orders:
-            order = item
-            display_order()
+        for i in range(len(orders)):
+            order = orders[i]
+            display_order(i+1)
