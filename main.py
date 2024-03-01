@@ -5,6 +5,12 @@ from restaraunt import *
 # define the list that will hold multiple orders
 orders = []
 
+def make_a_copy() -> []:
+    duplicate = []
+    for i in range(0, len(order)):
+        duplicate.append(order[i])
+    return duplicate
+
 def new_order():
 
     print(f'top of new_order: len(order) = {len(order)}')
@@ -242,17 +248,11 @@ def get_order() -> None:
     get_fries()
     get_ketchup_packets()
     check_for_discount()
-"""
-    # strange "TRICK" needed to keep orders list from getting corrupted
-    orders.append([])
-    print(f'DEBUG 1 orders: {orders}')
-    # CORRUPTS: orders.append(order)
-    orders[len(orders) - 1] = order
-    print(f'DEBUG 2 orders: {orders}')
-    display_order()
-    print(f'DEBUG 3 at the bottom of get_order(), orders = {orders}')
-"""
 
+    print(f'DEBUG 1 orders: {orders}')
+    dupe_order = make_a_copy()
+    orders.append(dupe_order)
+    print(f'DEBUG 2 orders: {orders}')
 
 def display_multiple_order(i):
     single_order = orders[i]
@@ -268,7 +268,9 @@ if __name__ == '__main__':
         get_order()
         print(f'DEBUG: after next order, orders = {orders}')
 
+"""
     if get_yes_no_answer("Do you want to view all orders?>"):
         print(f'DEBUG: Before for loop, orders = {orders}')
         for i in range(len(orders)):
             display_multiple_order(i)
+"""
