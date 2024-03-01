@@ -3,13 +3,13 @@ import sys
 from restaraunt import *
 from single_order import SingleOrder
 
-# define the list that will hold multiple multiple_orders
-order = []
-multiple_orders = []
+# define the list that will hold multiple orders
+orders = []
 
 
 def new_order():
 
+    print(f'top of new_order: len(order) = {len(order)}')
     order[IDX_TOTAL_COST] = 0
 
     order[IDX_SANDWICH_TYPE] = "None"
@@ -24,7 +24,7 @@ def new_order():
     order[IDX_DISCOUNT_APPLIED] = False
 
 
-def get_sandwich() -> list:
+def get_sandwich() -> None:
     if not get_yes_no_answer("Would you like a sandwich?>"):
         return
 
@@ -58,9 +58,6 @@ def get_sandwich() -> list:
     order[IDX_SANDWICH_COST] = prices[idx]
 
     order[IDX_TOTAL_COST] += prices[idx]
-
-    sandwich = [descrs[idx], prices[idx]]
-    return sandwich
 
 
 def get_beverage():
@@ -241,39 +238,39 @@ def get_quantity(question: str, min: int = 0, max: int = 10) -> int:
 
 
 def get_order() -> None:
-    global multiple_orders, order
     new_order()
     get_sandwich()
     get_beverage()
     get_fries()
     get_ketchup_packets()
     check_for_discount()
-
-    # strange "TRICK" needed to keep multiple_orders list from getting corrupted
-    multiple_orders.append([])
-    print(f'DEBUG 1 multiple_orders: {multiple_orders}')
-    # CORRUPTS: multiple_orders.append(order)
-    multiple_orders[len(multiple_orders) - 1] = order
-    print(f'DEBUG 2 multiple_orders: {multiple_orders}')
+"""
+    # strange "TRICK" needed to keep orders list from getting corrupted
+    orders.append([])
+    print(f'DEBUG 1 orders: {orders}')
+    # CORRUPTS: orders.append(order)
+    orders[len(orders) - 1] = order
+    print(f'DEBUG 2 orders: {orders}')
     display_order()
-    print(f'DEBUG 3 at the bottom of get_order(), multiple_orders = {multiple_orders}')
+    print(f'DEBUG 3 at the bottom of get_order(), orders = {orders}')
+"""
 
 
 def display_multiple_order(i):
-    single_order = multiple_orders[i]
+    single_order = orders[i]
     print(single_order)
 
 
 if __name__ == '__main__':
-    print(f'Combo Menu with multiple multiple_orders and python version {get_python_version()}')
+    print(f'Combo Menu with multiple orders and python version {get_python_version()}')
     get_order()
 
-    print(f'DEBUG: after first order, multiple_orders = {multiple_orders}')
+    print(f'DEBUG: after first order, orders = {orders}')
     while get_yes_no_answer("Do you want to make another order?>"):
         get_order()
-        print(f'DEBUG: after next order, multiple_orders = {multiple_orders}')
+        print(f'DEBUG: after next order, orders = {orders}')
 
-    if get_yes_no_answer("Do you want to view all multiple_orders?>"):
-        print(f'DEBUG: Before for loop, multiple_orders = {multiple_orders}')
-        for i in range(len(multiple_orders)):
+    if get_yes_no_answer("Do you want to view all orders?>"):
+        print(f'DEBUG: Before for loop, orders = {orders}')
+        for i in range(len(orders)):
             display_multiple_order(i)
