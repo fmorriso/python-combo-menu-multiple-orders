@@ -159,9 +159,10 @@ def check_for_discount():
 
 
 def display_order(i: int = -1):
+    """Display a specific order from the orders list or just the current order"""
     global order
     output = ''
-    if i == -1:
+    if i == -1: # current order only
         output += 'Your order:'
     else:
         output += f'Order number {i + 1}'
@@ -232,19 +233,19 @@ def get_python_version() -> str:
     return f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'
 
 
-def get_quantity(question: str, min: int = 0, max: int = 10) -> int:
-    """Prompt for a number between min and max"""
-    question = f'{question} (between {min} and {max})?>'
-    count: int = min - 1
-    while count < min or count > max:
+def get_quantity(question: str, min_value: int = 0, max_value: int = 10) -> int:
+    """Prompt for a number between min_value and max_value"""
+    question = f'{question} (between {min_value} and {max_value})?>'
+    count: int = min_value - 1
+    while count < min_value or count > max_value:
         try:
             count = int(input(question))
-            if count < min or count > max:
-                print(f'Please enter a number between {min} and {max}.')
+            if count < min_value or count > max_value:
+                print(f'Please enter a number between {min_value} and {max_value}.')
             else:
                 return count
         except ValueError:
-            print(f'Please enter a value between {min} and {max}')
+            print(f'Please enter a value between {min_value} and {max_value}')
 
 
 def get_order() -> None:
