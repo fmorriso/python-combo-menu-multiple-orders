@@ -1,4 +1,4 @@
-import os, sys
+import sys
 
 # define a list to hold a single order
 order = []
@@ -183,11 +183,11 @@ def get_fries():
         return
 
     # create prompt
-    prompt = "Which fries size you like to order: "
+    prompt = "Which fries size you like to order: ("
     for idx in range(IDX_FRIES_SMALL, IDX_FRIES_LARGE + 1):
         prompt += f'{descrs[idx]}: ${prices[idx]:.2f}, '
     prompt = prompt.removesuffix(', ')
-    prompt += " ?>"
+    prompt += ") ?>"
 
     idx = -1
     while idx == -1:
@@ -236,8 +236,8 @@ def check_for_discount():
         order[IDX_TOTAL_COST] -= 1
 
 
-def display_order(i: int = -1):
-    """Display a specific order from the orders list or just the current order"""
+def display_order(i: int = -1) -> None:
+    """Display a specific order from the orders list or just the current orde (when i is -1)"""
     global order
     output = ''
     if i == -1:  # current order only
