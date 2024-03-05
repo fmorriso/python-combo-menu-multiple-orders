@@ -1,6 +1,83 @@
 import os, sys
 
-from restaraunt import *
+# define a list to hold a single order
+order = []
+
+# define and populate portions of the order based on ordinal position
+IDX_TOTAL_COST = 0
+order.append(0.0)
+
+IDX_SANDWICH_TYPE = 1
+order.append("None")
+
+IDX_SANDWICH_COST = 2
+order.append(0.0)
+
+IDX_BEVERAGE_SIZE = 3
+order.append("None")
+
+IDX_BEVERAGE_COST = 4
+order.append(0.0)
+
+IDX_FRIES_SIZE = 5
+order.append("None")
+
+IDX_FRIES_COST = 6
+order.append(0.0)
+
+IDX_DISCOUNT_APPLIED = 7
+order.append(False)
+
+IDX_NUM_KETCHUP_PACKETS = 8
+order.append(0)
+
+IDX_KETCHUP_PACKETS_COST = 9
+order.append(0.0)
+
+# NOTE: indexes for descriptions and prices must be kept in sync with each other
+descrs = []
+prices = []
+
+IDX_SANDWICH_CHICKEN = 0
+descrs.append('Chicken')
+prices.append(5.25)
+
+IDX_SANDWICH_BEEF = 1
+descrs.append('Beef')
+prices.append(6.25)
+
+IDX_SANDWICH_TOFU = 2
+descrs.append('Tofu')
+prices.append(5.75)
+
+IDX_BEVERAGE_SMALL = 3
+descrs.append('Small')
+prices.append(1.0)
+
+IDX_BEVERAGE_MEDIUM = 4
+descrs.append('Medium')
+prices.append(1.5)
+
+IDX_BEVERAGE_LARGE = 5
+descrs.append('Large')
+prices.append(2.0)
+
+IDX_FRIES_SMALL = 6
+descrs.append('Small')
+prices.append(1.0)
+
+IDX_FRIES_MEDIUM = 7
+descrs.append('Medium')
+prices.append(1.5)
+
+IDX_FRIES_LARGE = 8
+descrs.append('Large')
+prices.append(2.0)
+
+IDX_KETCHUP_PACKETS = 9
+descrs.append('Ketchup Packets')
+prices.append(0.25)
+
 
 # define the list that will hold multiple orders
 orders = []
@@ -163,15 +240,18 @@ def display_order(i: int = -1):
     """Display a specific order from the orders list or just the current order"""
     global order
     output = ''
-    if i == -1: # current order only
+    if i == -1:  # current order only
         output += 'Your order:'
     else:
         output += f'Order number {i + 1}'
         order = orders[i]
 
+    # width to use when printing item type or size to keep things nicely aligned on output
+    w_descr = 17
+
     # add sandwich information
     item_name = 'Sandwich:'
-    output += f'\n\t{item_name:17}'
+    output += f'\n\t{item_name:{w_descr}}'
     if order[IDX_SANDWICH_TYPE] == 'None':
         output += 'none'
     else:
@@ -179,7 +259,7 @@ def display_order(i: int = -1):
 
     # add beverage information
     item_name = 'Beverage:'
-    output += f'\n\t{item_name:17}'
+    output += f'\n\t{item_name:{w_descr}}'
     if order[IDX_BEVERAGE_SIZE] == 'None':
         output += 'none'
     else:
@@ -187,19 +267,18 @@ def display_order(i: int = -1):
 
     # add fries information
     item_name = 'Fries:'
-    output += f'\n\t{item_name:17}'
+    output += f'\n\t{item_name:{w_descr}}'
     if order[IDX_FRIES_SIZE] == 'None':
         output += 'none'
     else:
         output += f'{order[IDX_FRIES_SIZE]:8}${order[IDX_FRIES_COST]:6.2f}'
 
     # show ketchup packets, if any were requested
-        #        1234567890123456
     item_name = 'Ketchup Packets:'
     if order[IDX_KETCHUP_PACKETS_COST] > 0:
-        output += f'\n\t{item_name:17}{order[IDX_NUM_KETCHUP_PACKETS]:<8}${order[IDX_KETCHUP_PACKETS_COST]:6.2f}'
+        output += f'\n\t{item_name:{w_descr}}{order[IDX_NUM_KETCHUP_PACKETS]:<8}${order[IDX_KETCHUP_PACKETS_COST]:6.2f}'
     else:
-        output += f'\n\t{item_name:17}none'
+        output += f'\n\t{item_name:{w_descr}}none'
 
     # show discount if applied
     if order[IDX_DISCOUNT_APPLIED]:
@@ -208,12 +287,7 @@ def display_order(i: int = -1):
         output += f'\n\t{item_name:25}${item_value:6.2f}'
 
     # total cost
-    # 29 for Firewalled Replit but 33 for local    
-    try:
-        temp = os.environ['REPL_SLUG']
-        w = 29
-    except KeyError:
-        w = 33
+    w = 29
     # print(f'{w=}')
     output += f'\n{"Total:":{w}}${order[IDX_TOTAL_COST]:6.2f}'
 
@@ -278,8 +352,8 @@ def display_all_orders():
 
 if __name__ == '__main__':
     print(f'Combo Menu with multiple orders using python version {get_python_version()}')
-    #env_HOME = os.environ['HOME']
-    #print(f'{env_HOME=}')
+    # env_HOME = os.environ['HOME']
+    # print(f'{env_HOME=}')
     # print(os.environ)
     # for e in os.environ:
     #     print(e)
