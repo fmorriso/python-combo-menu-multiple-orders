@@ -153,6 +153,7 @@ def get_ketchup_packets():
 
 
 def check_for_discount():
+    """If customer orders a sandwich, a beverage and fries, give them the combo discount"""
     if order[IDX_SANDWICH_COST] > 0 and order[IDX_BEVERAGE_COST] > 0 and order[IDX_FRIES_COST] > 0:
         order[IDX_DISCOUNT_APPLIED] = True
         order[IDX_TOTAL_COST] -= 1
@@ -169,44 +170,45 @@ def display_order(i: int = -1):
         order = orders[i]
 
     # add sandwich information
-    category = 'Sandwich:'
-    output += f'\n\t{category:12}'
+    item_name = 'Sandwich:'
+    output += f'\n\t{item_name:17}'
     if order[IDX_SANDWICH_TYPE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_SANDWICH_TYPE]:10} ${order[IDX_SANDWICH_COST]:6.2f}'
+        output += f'{order[IDX_SANDWICH_TYPE]:8}${order[IDX_SANDWICH_COST]:6.2f}'
 
     # add beverage information
-    category = 'Beverage:'
-    output += f'\n\t{category:12}'
+    item_name = 'Beverage:'
+    output += f'\n\t{item_name:17}'
     if order[IDX_BEVERAGE_SIZE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_BEVERAGE_SIZE]:10} ${order[IDX_BEVERAGE_COST]:6.2f}'
+        output += f'{order[IDX_BEVERAGE_SIZE]:8}${order[IDX_BEVERAGE_COST]:6.2f}'
 
     # add fries information
-    category = 'Fries:'
-    output += f'\n\t{category:12}'
+    item_name = 'Fries:'
+    output += f'\n\t{item_name:17}'
     if order[IDX_FRIES_SIZE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_FRIES_SIZE]:10} ${order[IDX_FRIES_COST]:6.2f}'
+        output += f'{order[IDX_FRIES_SIZE]:8}${order[IDX_FRIES_COST]:6.2f}'
 
     # show ketchup packets, if any were requested
-    category = 'Ketchup Packets:'
+        #        1234567890123456
+    item_name = 'Ketchup Packets:'
     if order[IDX_KETCHUP_PACKETS_COST] > 0:
-        output += f'\n\t{category:17} {order[IDX_NUM_KETCHUP_PACKETS]:-4} ${order[IDX_KETCHUP_PACKETS_COST]:6.2f}'
+        output += f'\n\t{item_name:17}{order[IDX_NUM_KETCHUP_PACKETS]:<8}${order[IDX_KETCHUP_PACKETS_COST]:6.2f}'
     else:
-        output += f'\n\t{category:17} none'
+        output += f'\n\t{item_name:17}none'
 
     # show discount if applied
     if order[IDX_DISCOUNT_APPLIED]:
-        category = 'Discount:'
+        item_name = 'Combo discount:'
         item_value = -1.0
-        output += f'\n\t{category:22} ${item_value:6.2f}'
+        output += f'\n\t{item_name:25}${item_value:6.2f}'
 
     # total cost
-    output += f'\n{"Total:":26} ${order[IDX_TOTAL_COST]:6.2f}'
+    output += f'\n{"Total:":33}${order[IDX_TOTAL_COST]:6.2f}'
 
     print(output)
 
