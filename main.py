@@ -1,4 +1,4 @@
-import sys
+import os, sys
 
 from restaraunt import *
 
@@ -208,7 +208,13 @@ def display_order(i: int = -1):
         output += f'\n\t{item_name:25}${item_value:6.2f}'
 
     # total cost
-    w = 29 # for Firewalled Replit but 33 for local
+    # 29 for Firewalled Replit but 33 for local    
+    try:
+        temp = os.environ['REPL_SLUG']
+        w = 29
+    except KeyError:
+        w = 33
+    # print(f'{w=}')
     output += f'\n{"Total:":{w}}${order[IDX_TOTAL_COST]:6.2f}'
 
     print(output)
@@ -272,6 +278,12 @@ def display_all_orders():
 
 if __name__ == '__main__':
     print(f'Combo Menu with multiple orders using python version {get_python_version()}')
+    #env_HOME = os.environ['HOME']
+    #print(f'{env_HOME=}')
+    # print(os.environ)
+    # for e in os.environ:
+    #     print(e)
+
     get_order()
 
     # print(f'DEBUG: after first order, orders = {orders}')
