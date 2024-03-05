@@ -150,7 +150,7 @@ def get_beverage():
     for idx in range(IDX_BEVERAGE_SMALL, IDX_BEVERAGE_LARGE + 1):
         prompt += f'{descrs[idx]}: ${prices[idx]:.2f}, '
     prompt = prompt.removesuffix(', ')
-    prompt += ") >"
+    prompt += ")? >"
 
     idx = -1
     while idx == -1:
