@@ -249,8 +249,11 @@ def display_order(i: int = -1):
     # width for printing category
     w_category = 17
 
-    # width to use when printing item type or size to keep things nicely aligned on output
+    # width to use when printing item type or size
     w_name = 8
+    
+    # cost format
+    w_cost = '6.2f'
 
     # add sandwich information
     item_name = 'Sandwich:'
@@ -258,7 +261,7 @@ def display_order(i: int = -1):
     if order[IDX_SANDWICH_TYPE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_SANDWICH_TYPE]:{w_name}}${order[IDX_SANDWICH_COST]:6.2f}'
+        output += f'{order[IDX_SANDWICH_TYPE]:{w_name}}${order[IDX_SANDWICH_COST]:{w_cost}}'
 
     # add beverage information
     item_name = 'Beverage:'
@@ -266,7 +269,7 @@ def display_order(i: int = -1):
     if order[IDX_BEVERAGE_SIZE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_BEVERAGE_SIZE]:{w_name}}${order[IDX_BEVERAGE_COST]:6.2f}'
+        output += f'{order[IDX_BEVERAGE_SIZE]:{w_name}}${order[IDX_BEVERAGE_COST]:{w_cost}}'
 
     # add fries information
     item_name = 'Fries:'
@@ -274,12 +277,12 @@ def display_order(i: int = -1):
     if order[IDX_FRIES_SIZE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_FRIES_SIZE]:{w_name}}${order[IDX_FRIES_COST]:6.2f}'
+        output += f'{order[IDX_FRIES_SIZE]:{w_name}}${order[IDX_FRIES_COST]:{w_cost}}'
 
     # show ketchup packets, if any were requested
     item_name = 'Ketchup Packets:'
     if order[IDX_KETCHUP_PACKETS_COST] > 0:
-        output += f'\n\t{item_name:{w_category}}{order[IDX_NUM_KETCHUP_PACKETS]:<{w_name}}${order[IDX_KETCHUP_PACKETS_COST]:6.2f}'
+        output += f'\n\t{item_name:{w_category}}{order[IDX_NUM_KETCHUP_PACKETS]:<{w_name}}${order[IDX_KETCHUP_PACKETS_COST]:{w_cost}}'
     else:
         output += f'\n\t{item_name:{w_category}}none'
 
@@ -287,12 +290,12 @@ def display_order(i: int = -1):
     if order[IDX_DISCOUNT_APPLIED]:
         item_name = 'Combo discount:'
         item_value = -1.0
-        output += f'\n\t{item_name:25}${item_value:6.2f}'
+        output += f'\n\t{item_name:25}${item_value:{w_cost}}'
 
     # total cost
     w = 29
     # print(f'{w=}')
-    output += f'\n{"Total:":{w}}${order[IDX_TOTAL_COST]:6.2f}'
+    output += f'\n{"Total:":{w}}${order[IDX_TOTAL_COST]:{w_cost}}'
 
     print(output)
 
