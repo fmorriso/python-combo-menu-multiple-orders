@@ -68,7 +68,7 @@ prices.append(2.0)
 
 IDX_FRIES_SMALL = 6
 descrs.append('Small')
-prices.append(1.5)
+prices.append(1.0)
 
 IDX_FRIES_MEDIUM = 7
 descrs.append('Medium')
