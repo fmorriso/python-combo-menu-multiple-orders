@@ -245,40 +245,43 @@ def display_order(i: int = -1):
     else:
         output += f'Order number {i + 1}'
         order = orders[i]
+    
+    # width for printing category
+    w_category = 17
 
     # width to use when printing item type or size to keep things nicely aligned on output
-    w_descr = 17
+    w_name = 8
 
     # add sandwich information
     item_name = 'Sandwich:'
-    output += f'\n\t{item_name:{w_descr}}'
+    output += f'\n\t{item_name:{w_category}}'
     if order[IDX_SANDWICH_TYPE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_SANDWICH_TYPE]:8}${order[IDX_SANDWICH_COST]:6.2f}'
+        output += f'{order[IDX_SANDWICH_TYPE]:{w_name}}${order[IDX_SANDWICH_COST]:6.2f}'
 
     # add beverage information
     item_name = 'Beverage:'
-    output += f'\n\t{item_name:{w_descr}}'
+    output += f'\n\t{item_name:{w_category}}'
     if order[IDX_BEVERAGE_SIZE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_BEVERAGE_SIZE]:8}${order[IDX_BEVERAGE_COST]:6.2f}'
+        output += f'{order[IDX_BEVERAGE_SIZE]:{w_name}}${order[IDX_BEVERAGE_COST]:6.2f}'
 
     # add fries information
     item_name = 'Fries:'
-    output += f'\n\t{item_name:{w_descr}}'
+    output += f'\n\t{item_name:{w_category}}'
     if order[IDX_FRIES_SIZE] == 'None':
         output += 'none'
     else:
-        output += f'{order[IDX_FRIES_SIZE]:8}${order[IDX_FRIES_COST]:6.2f}'
+        output += f'{order[IDX_FRIES_SIZE]:{w_name}}${order[IDX_FRIES_COST]:6.2f}'
 
     # show ketchup packets, if any were requested
     item_name = 'Ketchup Packets:'
     if order[IDX_KETCHUP_PACKETS_COST] > 0:
-        output += f'\n\t{item_name:{w_descr}}{order[IDX_NUM_KETCHUP_PACKETS]:<8}${order[IDX_KETCHUP_PACKETS_COST]:6.2f}'
+        output += f'\n\t{item_name:{w_category}}{order[IDX_NUM_KETCHUP_PACKETS]:<{w_name}}${order[IDX_KETCHUP_PACKETS_COST]:6.2f}'
     else:
-        output += f'\n\t{item_name:{w_descr}}none'
+        output += f'\n\t{item_name:{w_category}}none'
 
     # show discount if applied
     if order[IDX_DISCOUNT_APPLIED]:
