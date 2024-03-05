@@ -208,7 +208,8 @@ def display_order(i: int = -1):
         output += f'\n\t{item_name:25}${item_value:6.2f}'
 
     # total cost
-    output += f'\n{"Total:":33}${order[IDX_TOTAL_COST]:6.2f}'
+    w = 29 # for Firewalled Replit but 33 for local
+    output += f'\n{"Total:":{w}}${order[IDX_TOTAL_COST]:6.2f}'
 
     print(output)
 
