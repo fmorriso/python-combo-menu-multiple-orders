@@ -85,11 +85,9 @@ orders = []
 
 def new_order():
     global order
-    # print(f'DEBUG: top of new_order: len(order) = {len(order)}')
+
     size: int = len(order)
-    order = []
-    for i in range(size):
-        order.append(0)
+    order = [0] * size
 
     order[IDX_TOTAL_COST] = 0
 
@@ -373,3 +371,5 @@ if __name__ == '__main__':
     if get_yes_no_answer("Do you want to view all orders?>"):
         # print(f'DEBUG: Before for loop, orders = {orders}')
         display_all_orders()
+
+    print('Thanks for visiting my restaurant')
