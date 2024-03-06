@@ -122,7 +122,7 @@ def get_sandwich() -> None:
         if choice is None or len(choice) == 0:
             choice = "unknown"
         choice = choice[:1].lower()
-        match choice[:1]:
+        match choice:
             case 'c':
                 idx = IDX_SANDWICH_CHICKEN
 
@@ -159,7 +159,7 @@ def get_beverage():
             choice = "unknown"
         choice = choice[:1].lower()
 
-        match choice[:1]:
+        match choice:
             case 's':
                 idx = IDX_BEVERAGE_SMALL
 
@@ -195,7 +195,7 @@ def get_fries():
         if choice is None or len(choice) == 0:
             choice = "unknown"
         choice = choice[:1].lower()
-        match choice[:1]:
+        match choice:
             case 's':
                 idx = IDX_FRIES_SMALL
                 yesno = get_yes_no_answer('Do you want to super-size to large size?>')
@@ -222,10 +222,11 @@ def get_ketchup_packets():
         return
 
     per_each_cost = prices[IDX_KETCHUP_PACKETS]
-    n = get_quantity(f"How many ketchup packets would you like at ${per_each_cost:.2f} each", 1, 10)
+    n = get_quantity(f"How many ketchup packets would you like at ${per_each_cost:.2f} each?>", 1, 10)
 
     order[IDX_NUM_KETCHUP_PACKETS] = n
     order[IDX_KETCHUP_PACKETS_COST] = n * per_each_cost
+    
     order[IDX_TOTAL_COST] += order[IDX_KETCHUP_PACKETS_COST]
 
 
@@ -293,9 +294,7 @@ def display_order(i: int = -1) -> None:
         output += f'\n\t{item_name:25}${item_value:{w_cost}}'
 
     # total cost
-    w = 29
-    # print(f'{w=}')
-    output += f'\n{"Total:":{w}}${order[IDX_TOTAL_COST]:{w_cost}}'
+    output += f'\n\t{"Total:":{w_category + w_name}}${order[IDX_TOTAL_COST]:{w_cost}}'
 
     print(output)
 
