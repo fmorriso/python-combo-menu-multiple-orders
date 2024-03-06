@@ -291,7 +291,7 @@ def display_order(i: int = -1) -> None:
     if order[IDX_DISCOUNT_APPLIED]:
         item_name = 'Combo discount:'
         item_value = -1.0
-        output += f'\n\t{item_name:25}${item_value:{w_cost}}'
+        output += f'\n\t{item_name:{w_category + w_name}}${item_value:{w_cost}}'
 
     # total cost
     output += f'\n\t{"Total:":{w_category + w_name}}${order[IDX_TOTAL_COST]:{w_cost}}'
