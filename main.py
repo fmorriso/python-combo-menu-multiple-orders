@@ -1,42 +1,45 @@
+import os
 import sys
 
-# define a list to hold a single order
-order = []
+from typing import Union
 
-# define and populate portions of the order based on ordinal position
+
+# define a list to hold a single order
+order: list[Union[None, int, float, str, bool]] = [None] * 10
+
+# initialize portions of the order based on ordinal position
 IDX_TOTAL_COST = 0
-order.append(0.0)
+order[IDX_TOTAL_COST] = 0.0
 
 IDX_SANDWICH_TYPE = 1
-order.append("None")
 
 IDX_SANDWICH_COST = 2
-order.append(0.0)
+order[IDX_SANDWICH_COST] = 0.0
 
 IDX_BEVERAGE_SIZE = 3
-order.append("None")
+
 
 IDX_BEVERAGE_COST = 4
-order.append(0.0)
+order[IDX_BEVERAGE_COST] = 0.0
 
 IDX_FRIES_SIZE = 5
-order.append("None")
+
 
 IDX_FRIES_COST = 6
-order.append(0.0)
+order[IDX_FRIES_COST] = 0.0
 
 IDX_DISCOUNT_APPLIED = 7
-order.append(False)
+order[IDX_DISCOUNT_APPLIED] = False
 
 IDX_NUM_KETCHUP_PACKETS = 8
-order.append(0)
+order[IDX_NUM_KETCHUP_PACKETS] = 0
 
 IDX_KETCHUP_PACKETS_COST = 9
-order.append(0.0)
+order[IDX_KETCHUP_PACKETS_COST] = 0.0
 
 # NOTE: indexes for descriptions and prices must be kept in sync with each other
-descrs = []
-prices = []
+descrs: list[str] = []
+prices: list[float] = []
 
 IDX_SANDWICH_CHICKEN = 0
 descrs.append('Chicken')
@@ -89,16 +92,19 @@ def new_order():
     size: int = len(order)
     order = [0] * size
 
-    order[IDX_TOTAL_COST] = 0
+    order[IDX_TOTAL_COST] = 0.0
 
     order[IDX_SANDWICH_TYPE] = "None"
-    order[IDX_SANDWICH_COST] = 0
+    order[IDX_SANDWICH_COST] = 0.0
 
     order[IDX_BEVERAGE_SIZE] = "None"
-    order[IDX_BEVERAGE_COST] = 0
+    order[IDX_BEVERAGE_COST] = 0.0
 
     order[IDX_FRIES_SIZE] = "None"
-    order[IDX_FRIES_COST] = 0
+    order[IDX_FRIES_COST] = 0.0
+
+    order[IDX_KETCHUP_PACKETS] = 0
+    order[IDX_KETCHUP_PACKETS_COST] = 0.0
 
     order[IDX_DISCOUNT_APPLIED] = False
 
@@ -148,7 +154,7 @@ def get_beverage():
     for idx in range(IDX_BEVERAGE_SMALL, IDX_BEVERAGE_LARGE + 1):
         prompt += f'{descrs[idx]}: ${prices[idx]:.2f}, '
     prompt = prompt.removesuffix(', ')
-    prompt += ")? >"
+    prompt += ") ? >"
 
     idx = -1
     while idx == -1:
@@ -353,6 +359,14 @@ def display_all_orders():
         display_order(i)
 
 
+def display_environment():
+    local_app_data = os.environ['LOCALAPPDATA']
+    print(f'{local_app_data=}')
+    print(os.environ)
+    # for e in os.environ:
+    #     print(e)
+
+
 if __name__ == '__main__':
     print(f'Combo Menu with multiple orders using python version {get_python_version()}')
     # env_HOME = os.environ['HOME']
@@ -360,7 +374,7 @@ if __name__ == '__main__':
     # print(os.environ)
     # for e in os.environ:
     #     print(e)
-
+    display_environment()
     get_order()
 
     # print(f'DEBUG: after first order, orders = {orders}')
